@@ -10,7 +10,11 @@
 <body>
     
     <div id="app">
-        <p>Curos: {{ curso }}</p>
+        <p v-once >Curo: {{ curso }} | {{ aluno }} </p>
+        <a v-bind:href="docs">Vue Docs</a>
+        <p>Instrutor: {{ intrutor }}</p>
+        <div v-html="htmlp" ></div>
+        <div>{{ htmlp }}</div>
     </div>
 
     <script>
@@ -18,8 +22,12 @@
         new Vue({
             el:'#app',
             data:{
-                curso:'VueJS'
-            }
+                curso:'VueJS',
+                aluno: 'Vinicio D. Brejinski',
+                docs: 'https://vuejs.org',
+                intrutor:"Plínio Naves",
+                htmlp: "<p>Teste</p>"
+            },
         })
 
     </script>
