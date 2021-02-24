@@ -24,8 +24,10 @@ const App =() => {
   const addDigit = n => {
 
     if( n === '.' && currentState.displayInit.includes('.') ){
-
+        return
     }
+
+    const clearDisplay = currentState.displayInit  ==== '0'
 
     setValueDisplay(n)
   }
