@@ -1,7 +1,7 @@
 <template>
         <div class="task" :class="stateClass" @click="$emit('taskStateChanged', task)">
             <span @click.stop="$emit('removeTask', task)" class="close material-icons" title="Excluir" >close</span>
-            <span @click="$emit('editTask', task)" class="edit material-icons" title="Editar" >drive_file_rename_outline</span>
+            <span @click="$emit('editTask', task)" class="edit material-icons" title="Editar" >edit</span>
             <p>{{ task.name }}</p>
         </div>
 </template>
