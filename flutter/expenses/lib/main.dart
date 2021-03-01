@@ -21,11 +21,8 @@ class ExpensesApp extends StatelessWidget {
                 title: TextStyle(
                   fontFamily: 'OpenSans',
                 ),
-                button: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold
-
-                ),
+                button:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
         ),
       ),
@@ -66,8 +63,8 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.of(context).pop();
   }
 
-  _removeTransaction(String id){
-    setState((){
+  _removeTransaction(String id) {
+    setState(() {
       _transaction.removeWhere((tr) => tr.id == id);
     });
   }
