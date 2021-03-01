@@ -1,3 +1,4 @@
+
 import 'package:flutter/foundation.dart';
 
 class Transaction {
@@ -8,10 +9,13 @@ class Transaction {
 
 
   Transaction({
+
     @required this.id,
     @required this.title,
     @required this.value,
-    @required  this.date
+    @required this.date
+
   });
+
 
 }
