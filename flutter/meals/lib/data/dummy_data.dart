@@ -1,9 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import '../models/category.dart';
  
-
+import '../models/category.dart';
  
 const DUMMY_CATEGORIES = const [
   Category(
@@ -29,7 +26,7 @@ const DUMMY_CATEGORIES = const [
   Category(
     id: 'c5',
     title: 'Leve & Saudável',
-    color: Colors.teal,
+    color: Colors.amber,
   ),
   Category(
     id: 'c6',
