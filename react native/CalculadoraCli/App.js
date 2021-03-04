@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {Component} from 'react'
 import { StyleSheet, View } from 'react-native'
 
 
@@ -7,63 +7,104 @@ import Buttons from './src/Button'
 
 
 const initialState = {
-  displayInit: '0',
+  displayValue: '0',
   clearDisplay: false,
-  operatpr: null,
+  operaion: null,
   values: [0, 0],
   current: 0,
 }
 
 
-const App =() => {
+class App extends Component {
 
-  const [currentState, setCurrentState] = useState({ ... initialState})
-
-  const [ valuesDisplay, setValueDisplay ] = useState('0')
   
-  const addDigit = n => {
+  state = { ... initialState }
+  
+  addDigit = n => {
 
-    if( n === '.' && currentState.displayInit.includes('.') ){
-        return
+    
+    if( n === '.' && currentState.displayValue.includes('.') ){
+      return
     }
 
-    const clearDisplay = currentState.displayInit  ==== '0'
+    const clearDisplay = currentState.displayValue  === '0' || this.state.clearDisplay
 
-    setValueDisplay(n)
+    const currentValue = clearDisplay ? '' : this.state.displayValue
+    const displayValue = currentValue = n
+
+    this.setState({ displayValue, clearDisplay: false })
+
+    if(n != '.'){
+      const newValue = parseFloat(displayValue)
+      const values = [... this.state.values]
+      values[this.state.current] = newValue
+      this.setState({ values })
+    }
   }
 
-  const clearMemory = () =>{
-    setValueDisplay('0')
+  clearMemory = () =>{
+    this.setState({ displayValue: '0' })
   }
 
-  cosnt = setOperation = operator=>{
+  setOperation = operaion=>{
+      if(this.state.current === 0){
+        this.setState({
+          operaion,
+          current: 1,
+          clearDisplay: true,
+        })
+      }else{
+        const equals = operaion === '='
+        const values = [ ...this.state.values ]
 
+        try{
+          values[0] = eval(`${values[0]} ${this.state.operaion} ${values[1]}`)
+        }catch(e){
+          values[0] = this.state.values[0]
+        }
+
+        values[1] = 0
+
+        this.setState({
+          displayValue: values[0],
+          operaion: equals ? null : operaion,
+          current: equals? 0: 1, 
+          clearDisplay: !equals,
+          values
+        })
+
+
+      }
   }
 
-  return (
-    <View style={styles.container}>
-      <Display value={valuesDisplay} />
-       <View style={styles.button}>
-          <Buttons label='AC'  buttonsTrilpe  onClick={clearMemory} />
-          <Buttons label='\' operationButtons  onClick={setOperation} />
-          <Buttons label='7'  onClick={addDigit} />
-          <Buttons label='8'  onClick={addDigit} />
-          <Buttons label='9'  onClick={addDigit} />
-          <Buttons label='*' operationButtons  onClick={setOperation} />
-          <Buttons label='4'  onClick={addDigit} />
-          <Buttons label='5'  onClick={addDigit} />
-          <Buttons label='6'  onClick={addDigit} />
-          <Buttons label='-' operationButtons  onClick={setOperation} />
-          <Buttons label='1'  onClick={addDigit} />
-          <Buttons label='2'  onClick={addDigit} />
-          <Buttons label='3'  onClick={addDigit} />
-          <Buttons label='+' operationButtons  onClick={setOperation} />
-          <Buttons label='0' buttonsDouble   onClick={addDigit} />
-          <Buttons label='.'   onClick={addDigit}/>
-          <Buttons label='=' operationButtons onClick={setOperation} />
-       </View>
-    </View>
-  );
+  render(){
+
+    return (
+      <View style={styles.container}>
+        <Display value={this.displayValue} />
+         <View style={styles.button}>
+            <Buttons label='AC'  buttonsTrilpe  onClick={this.clearMemory} />
+            <Buttons label='\' operationButtons  onClick={this.setOperation} />
+            <Buttons label='7'  onClick={this.addDigit} />
+            <Buttons label='8'  onClick={this.addDigit} />
+            <Buttons label='9'  onClick={this.addDigit} />
+            <Buttons label='*' operationButtons  onClick={this.setOperation} />
+            <Buttons label='4'  onClick={this.addDigit} />
+            <Buttons label='5'  onClick={this.addDigit} />
+            <Buttons label='6'  onClick={this.addDigit} />
+            <Buttons label='-' operationButtons  onClick={this.setOperation} />
+            <Buttons label='1'  onClick={this.addDigit} />
+            <Buttons label='2'  onClick={this.addDigit} />
+            <Buttons label='3'  onClick={this.addDigit} />
+            <Buttons label='+' operationButtons  onClick={this.setOperation} />
+            <Buttons label='0' buttonsDouble   onClick={this.addDigit} />
+            <Buttons label='.'   onClick={this.addDigit}/>
+            <Buttons label='=' operationButtons onClick={this.setOperation} />
+         </View>
+      </View>
+    );
+  }
+
 };
 
 const styles = StyleSheet.create({
