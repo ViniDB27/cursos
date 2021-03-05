@@ -10,7 +10,7 @@ export default {
         },
         randomizeStocks(state){
             state.stocks.forEach(stc => {
-                stc.price = Math.random(stc.price * (1 + Math.random() - 0.45))
+                stc.price = Math.round(stc.price * (1 + Math.random() - 0.45))
             });
         }
     },
