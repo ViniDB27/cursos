@@ -1,6 +1,6 @@
 export default {
     state:{
-        founds: 10000,
+        funds: 10000,
         stocks: []
     },
     mutations: {
@@ -14,7 +14,7 @@ export default {
                     quantity,
                 })
             }
-            state.founds -= stockPrice * quantity
+            state.funds -= stockPrice * quantity
         },
         sellStock(state, { stockId, quantity, stockPrice }){
             const record = state.stocks.find(element => element.id == stockId)
@@ -25,7 +25,7 @@ export default {
                 state.stocks.splice(state.stocks.indexOf(record), 1)
             }
 
-            state.founds += stockPrice * quantity
+            state.funds += stockPrice * quantity
         },
     },
     actions: {
@@ -46,8 +46,8 @@ export default {
                 }
             })
         },
-        fouds(state){
-            return state.fouds
+        funds(state){
+            return state.funds
         }
     }
 }
